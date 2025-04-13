@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import TodoInput from './components/TodoInput';  // Updated to TodoInput
+import TodoInput from './components/TodoInput';
+
 import TaskList from './components/TaskList';
 import FilterBar from './components/FilterBar';
 import './App.css';
