@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TaskList from './components/TaskList';
 import FilterBar from './components/FilterBar';
-
 import './App.css'; // ✅ This is correct
 import Todoinput from './components/Todoinput';
-
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -30,6 +28,7 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add('dark-mode');
@@ -38,7 +37,6 @@ const App = () => {
     }
   }, [darkMode]);
 
-  // Add a new task with a priority
   const addTask = (taskText, priority) => {
     const newTask = {
       id: Date.now(),
@@ -49,17 +47,14 @@ const App = () => {
     setTasks([...tasks, newTask]);
   };
 
-  // Edit an existing task's text
   const editTask = (id, newText) => {
     setTasks(tasks.map((task) => (task.id === id ? { ...task, text: newText } : task)));
   };
 
-  // Delete a task by its id
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // Sort tasks by priority (High > Medium > Low)
   const sortTasksByPriority = () => {
     const sortedTasks = [...tasks].sort((a, b) => {
       const priorityOrder = { 'High': 3, 'Medium': 2, 'Low': 1 };
@@ -68,7 +63,6 @@ const App = () => {
     setTasks(sortedTasks);
   };
 
-  // Handle adding a task and reset the input
   const handleAddTask = (e) => {
     e.preventDefault();
     if (taskText.trim()) {
@@ -78,7 +72,6 @@ const App = () => {
     }
   };
 
-  // Show input form again
   const handleAddNewTask = () => {
     setIsInputVisible(true);
   };
@@ -89,19 +82,15 @@ const App = () => {
     return true; // For "all"
   });
 
-  
- 
-
   return (
     <div className={`App ${darkMode ? 'dark' : ''}`}>
-      <h1 className="heading">Task List</h1>
+      <h1 className="heading">TODO TASK LIST </h1>
       <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
-  {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
-</button>
+        {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
+      </button>
 
       <FilterBar setFilter={setFilter} />
 
-      {/* Input Form to add a new task */}
       {isInputVisible && (
         <form onSubmit={handleAddTask}>
           <input
@@ -119,22 +108,19 @@ const App = () => {
         </form>
       )}
 
-      {/* Button to show the input form again */}
       {!isInputVisible && (
         <button onClick={handleAddNewTask}>Add New Task</button>
       )}
 
-      {/* Button to sort tasks by priority */}
       <button onClick={sortTasksByPriority}>🔽 Sort by Priority</button>
 
-      {/* Display the task list */}
       <TaskList
         tasks={filteredTasks}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
         editTask={editTask}
       />
-      <Todoinput/>
+      <Todoinput addTask={addTask} />
     </div>
   );
 };
