@@ -7,8 +7,7 @@ const TodoInput = ({ addTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (taskText.trim()) {
-      addTask(taskText, priority); // Pass taskText and priority to the parent component
-      setTaskText('');
+      addTask(taskText, priority);
     }
   };
 
