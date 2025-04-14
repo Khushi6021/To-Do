@@ -1,61 +1,22 @@
-import React, { useState } from 'react';
+// src/components/TaskList.js
+import React from 'react';
 
-
-const TaskList = ({ tasks, toggleComplete, deleteTask, editTask }) => {
-  const [editId, setEditId] = useState(null);
-  const [editText, setEditText] = useState('');
-
-  const handleSave = (id) => {
-    if (editText.trim() !== '') {
-      editTask(id, editText);
-      setEditId(null);
-      setEditText('');
-    }
-  };
-
-  const handleCancel = () => {
-    setEditId(null);
-    setEditText('');
-  };
-
+const TaskList = ({ tasks, toggleTask, deleteTask, editTask }) => {
   return (
-    <ul className="task-list">
-      {tasks.map((task) => (
-        <li
-          key={task.id}
-          className={`task-item ${task.completed ? 'completed' : ''} ${task.priority.toLowerCase()}`}
-        >
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={() => toggleComplete(task.id)}
-          />
-          {editId === task.id ? (
-            <>
-              <input
-                type="text"
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-              />
-              <button onClick={() => handleSave(task.id)}>💾</button>
-              <button onClick={handleCancel}>❌</button>
-            </>
-          ) : (
-            <>
-              <span>{task.text}</span>
-              <div className="task-actions">
-                <button onClick={() => { setEditId(task.id); setEditText(task.text); }}>
-                  ✏️
-                </button>
-                <button onClick={() => deleteTask(task.id)}>
-                  🗑️
-                </button>
-              </div>
-            </>
-          )}
-        </li>
+    <div>
+      {tasks.map(task => (
+        <div key={task.id}>
+          <span
+            style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+            onClick={() => toggleTask(task.id)}
+          >
+            {task.text} (Priority: {task.priority})
+          </span>
+          <button onClick={() => editTask(task.id, prompt("Edit task:", task.text))}>Edit</button>
+          <button onClick={() => deleteTask(task.id)}>Delete</button>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 
