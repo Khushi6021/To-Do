@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import TodoInput from './components/TodoInput';
+import Todoinput from './components/Todoinput';
 import TaskList from './components/TaskList';
 import FilterBar from './components/FilterBar';
 import './App.css';
@@ -71,7 +71,7 @@ const App = () => {
         {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
 
-      <TodoInput addTask={addTask} />  {/* Use TodoInput instead of TaskInput */}
+      <Todoinput addTask={addTask} />  {/* Use TodoInput instead of TaskInput */}
       <FilterBar setFilter={setFilter} />
       <TaskList
         tasks={filteredTasks}

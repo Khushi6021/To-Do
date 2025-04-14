@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const TodoInput = ({ addTask }) => {
+const Todoinput = ({ addTask }) => {
   const [taskText, setTaskText] = useState('');
   const [priority, setPriority] = useState('Medium');
 
@@ -32,4 +32,4 @@ const TodoInput = ({ addTask }) => {
   );
 };
 
-export default TodoInput;
+export default Todoinput;
